@@ -1,4 +1,4 @@
-pub fn calc_subnet(ip: &str, mask: u8)-> u32 {
+pub fn calc_subnet(ip: &str, mask: &str)-> u32 {
 
   //  let mut octets: Vec<&str> = ip.split(".").collect();
      // ** wasting space by creating the octect vecotr ****
@@ -32,7 +32,11 @@ pub fn calc_subnet(ip: &str, mask: u8)-> u32 {
     //| 00000000_00000000_00000000_00000001  (d as u32)
     //= 11000000_10101000_00000001_00000001  (192.168.1.1)
   
-   let u32_mask = !((1 << (32 - mask)) -1);
+   
+
+   let prefix_len: u8 = mask.parse().unwrap();
+
+   let u32_mask = !((1 << (32 - prefix_len)) -1);
 
    // (1 << (32 - mask)) bits shfits 1, (single bit) 32- mask bumber of places to the left 
    // subtracting 1 from that tunrs all the zeros to left into 1, and tunr the original 1 into a zero, leaving you with a run of 32 - mask lenght of zeros
