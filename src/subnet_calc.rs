@@ -1,3 +1,6 @@
+//broadast calc would also be cool
+
+
 use crate::ip_conversions::str_ip_to_u32; //only main.rs should use mod keyword
 
 pub fn calc_subnet(ip: &str, mask: &str)-> u32 {
