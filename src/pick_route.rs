@@ -3,9 +3,12 @@ use crate::ip_conversions::u32_to_str_ip;
 use crate::routes::Route;
 
 
-pub struct Packet {
-     pub destination_ip: &str,
-     pub destination_mask: &str,
+pub struct Packet <'a> { //calc subnet takes a refrence to the ip str, so  
+                        //so subnet calc doesnt take ownership of the ip address and bring it out of scope from main
+                        //with out the <'a> lifetime indicator, compiler doesnt know when to drop the refrence to the ip address
+                        //the reference will droped when data used to initialize the struct goes out of scope
+     pub destination_ip: &'a str,
+     pub destination_mask: &'a str,
 }
 
 // the <'a> lets the refrence being returned to stay valid for the lifetime of routing table
@@ -22,7 +25,7 @@ pub fn pick_route<'a>(packet: &Packet, routing_table: &'a Vec<Route>) -> Option<
         return None; 
     }
 
-    let mut max = 0;
+
     
     candidates.iter()
          .max_by_key(|route| route.mask.parse::<u32>().unwrap())
