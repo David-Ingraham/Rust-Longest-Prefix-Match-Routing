@@ -15,7 +15,7 @@ pub struct Packet <'a> { //calc subnet takes a refrence to the ip str, so
 //you need it after the func name, and on the param that the return type is referencing.
 //in this case, we are returning one of the route sructs in the routing_table vec
 pub fn pick_route<'a>(packet: &Packet, routing_table: &'a Vec<Route>) -> Option<&'a Route> { // Option<> >this lets me return none. i think this has somhting to do with enums?
-
+                                                                 //Option<T> is a enum that ships with the prelude.variants include Some and None
 
     let candidates: Vec<&Route> = routing_table.iter()
     .filter(|route| route.ip == u32_to_str_ip(subnet_calc::calc_subnet(&packet.destination_ip, &packet.destination_mask)))
