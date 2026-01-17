@@ -2,7 +2,10 @@ pub struct Route {
     pub ip: String,
     pub mask: String,
     pub port: String,
+    //should aslo have next hop ip
 }
+
+//i could also write an associated funciton with impl Route{} here then populate it in whatver scope calls it
 
 pub fn get_routing_table() -> Vec<Route> {
 

@@ -1,20 +1,8 @@
-# Stage 1: Build in Linux
-FROM rust:alpine AS builder
-
+FROM rust:alpine
 WORKDIR /app
-COPY . .
-
-# Install musl-dev for static linking
-RUN apk add --no-cache musl-dev
-
-# Build the binary
+COPY src ./src
+COPY Cargo.toml .
+COPY Cargo.lock .
 RUN cargo build --release
-
-# Stage 2: Runtime
-FROM alpine:latest
-
-COPY --from=builder /app/target/release/longest_prefix_match /usr/local/bin/
-
-RUN chmod +x /usr/local/bin/longest_prefix_match
-
-CMD ["tail", "-f", "/dev/null"]
+RUN chmod +x target/release/longest_prefix_match
+CMD ["./target/release/longest_prefix_match"]
