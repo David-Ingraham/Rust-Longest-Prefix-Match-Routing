@@ -41,9 +41,11 @@ let u32_mask = !((1 << (32 - prefix_len)) -1);
 ip_u32 & u32_mask
 ```
 
-conversions is the fun part. i assume ip addresses will come as a string forwhen calling the route table from an API or CLI output, 
+
 
 ## IP Conversions
+
+Assuming ip addresses will come as a string when calling the route table from an API or CLI output
 
 String to u32. Split on dot delimiter. Map each octet to u8. Shift bits left enough times to place the u8 far enough into the u32 so ifreflects its octect and OR together. 
 
